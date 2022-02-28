@@ -2,11 +2,23 @@ import React from "react";
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { MDXProvider } from "@mdx-js/react";
 
 import { Note } from "utils";
 
-import { Container } from "./container";
-import { Footer } from "./footer";
+import { Container } from "../container";
+import { Footer } from "../footer";
+
+import { H1, H2, H3, H4, H5, P } from "./@components";
+
+const components = {
+  h1: H1,
+  h2: H2,
+  h3: H3,
+  h4: H4,
+  h5: H5,
+  p: P,
+};
 
 export interface NoteLayoutProps {
   className?: string;
@@ -45,7 +57,9 @@ export const NoteLayout: React.FC<NoteLayoutProps> = ({ children, meta }) => {
             </h1>
           </div>
         </div>
-        <div className="markdown-render flex flex-col">{children}</div>
+        <div className="markdown-render flex flex-col">
+          <MDXProvider components={components as any}>{children}</MDXProvider>
+        </div>
         <Footer />
       </Container>
     </div>
