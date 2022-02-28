@@ -1,3 +1,15 @@
+import { NoteLayout } from "components/layout/note";
+
+export const meta = {
+  name: "Rote Method",
+  description: "Review and tools for Rote Method",
+  icon: "/icons/rote-method.svg",
+};
+
 # Rote Method
 
 hello
+
+export default ({ children }) => (
+  <NoteLayout meta={meta}>{children}</NoteLayout>
+);

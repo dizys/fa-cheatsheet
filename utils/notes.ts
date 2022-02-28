@@ -1,7 +1,8 @@
 import { readdir, stat, readFile } from "fs/promises";
 import * as Path from "path";
-
 import { NOTES_PAGES_DIR } from "./paths";
+
+const META_JS_REGEX = /export\s+const\s+meta\s*=[\s\n]*\{((.|\n)*?)\}[\s\n]*;/;
 
 export interface Note {
   name: string;
@@ -21,13 +22,23 @@ export async function getNoteList(): Promise<Note[]> {
     if (!noteFileStat.isDirectory()) {
       continue;
     }
-    let infoJSONPath = Path.join(NOTES_PAGES_DIR, noteFile, "info.json");
-    if (!(await fileExists(infoJSONPath))) {
+    let indexMDXPath = Path.join(NOTES_PAGES_DIR, noteFile, "index.mdx");
+    if (!(await fileExists(indexMDXPath))) {
       continue;
     }
     try {
-      let infoJSON = await readFile(infoJSONPath, { encoding: "utf8" });
-      let info = JSON.parse(infoJSON) as Note;
+      let indexMDX = await readFile(indexMDXPath, { encoding: "utf8" });
+
+      let matches = indexMDX.match(META_JS_REGEX);
+
+      if (!matches) {
+        continue;
+      }
+
+      let metaObjectJS = `({${matches[1]}})`;
+
+      let info = eval(metaObjectJS) as Note;
+
       notes.push({
         ...info,
         url: `/notes/${noteFile}`,

@@ -1,3 +1,15 @@
+import { NoteLayout } from "components/layout/note";
+
+export const meta = {
+  name: "Master Theorem",
+  description: "Review and tools for Master Theorem",
+  icon: "/icons/master-theorem.svg",
+};
+
 # Master Theory
 
 Hello
+
+export default ({ children }) => (
+  <NoteLayout meta={meta}>{children}</NoteLayout>
+);

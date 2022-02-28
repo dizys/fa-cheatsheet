@@ -1,3 +1,15 @@
+import { NoteLayout } from "components/layout/note";
+
+export const meta = {
+  name: "Growth Types",
+  description: "Show how to decide growth types of functions and related tools",
+  icon: "/icons/growth-types.svg",
+};
+
 # Growth Types
 
 Hello
+
+export default ({ children }) => (
+  <NoteLayout meta={meta}>{children}</NoteLayout>
+);

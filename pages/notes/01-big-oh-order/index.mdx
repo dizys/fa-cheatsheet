@@ -1,3 +1,15 @@
+import { NoteLayout } from "components/layout/note";
+
+export const meta = {
+  name: "Big-Oh Order",
+  description: "Comparison of Big-Oh order of different expressions",
+  icon: "/icons/big-oh-order.svg",
+};
+
 # hello
 
 there!
+
+export default ({ children }) => (
+  <NoteLayout meta={meta}>{children}</NoteLayout>
+);
